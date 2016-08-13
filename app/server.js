@@ -26,29 +26,29 @@ app.use(webpackHotMiddleware(compiler, {
 
 app.use(express.static('./public'));
 
-app.post('/init', function(req, res, next) {
-  Student.find().remove(function(err) {
-    if(err) return next(err);
+app.post('/init', function (req, res, next) {
+  Student.find().remove(function (err) {
+    if (err) return next(err);
 
     Student.create(studentsData, (err, all) => {
-      if(err) return next(err);
+      if (err) return next(err);
       res.json(all);
     });
   });
 });
 
-app.get('/students', function(req, res, next) {
+app.get('/students', function (req, res, next) {
   Student.find().lean().exec((err, data) => {
-    if(err) return next(err);
+    if (err) return next(err);
     res.json(data);
   })
 });
 
-app.delete('/students/:id', function(req, res, next) {
+app.delete('/students/:id', function (req, res, next) {
   const id = req.params.id;
-  Student.find({_id:id}).remove((err, data)=>{
-    if(err) return next(err);
-    if(data) {
+  Student.find({_id: id}).remove((err, data)=> {
+    if (err) return next(err);
+    if (data) {
       res.sendStatus(204);
     } else {
       res.sendStatus(404);
@@ -56,7 +56,7 @@ app.delete('/students/:id', function(req, res, next) {
   });
 });
 
-app.listen(3000, function() {
+app.listen(3000, function () {
   db.connect();
   console.log('Listening on 3000');
 });
