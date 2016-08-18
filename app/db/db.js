@@ -1,10 +1,14 @@
 var mongoose = require('mongoose');
 
 module.exports = {
-  connect: function () {
-    mongoose.connect('mongodb://localhost/express-react-mongodb-demo');
+  connect: function (mode, callback) {
+    let url = 'mongodb://localhost/express-react-mongodb-demo';
+    if (mode === 'test') {
+      url = 'mongodb://localhost:27111/express-react-mongodb-test-demo';
+    }
+    mongoose.connect(url, callback);
   },
-  close: function () {
-    mongoose.connection.close();
+  close: function (callback) {
+    mongoose.connection.close(callback);
   }
-}
+};

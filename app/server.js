@@ -1,3 +1,4 @@
+'use strict';
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -56,7 +57,13 @@ app.delete('/students/:id', function (req, res, next) {
   });
 });
 
-app.listen(3000, function () {
-  db.connect();
-  console.log('Listening on 3000');
-});
+if (require.main === module) {
+  app.listen(3000, function () {
+    db.connect((err) => {
+      if (err) return console.error('db connection failed');
+      console.log('Listening on 3000');
+    });
+  });
+}
+
+export default app;
