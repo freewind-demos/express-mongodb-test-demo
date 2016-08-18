@@ -4,7 +4,7 @@ module.exports = {
   connect: function (mode, callback) {
     let url = 'mongodb://localhost/express-react-mongodb-demo';
     if (mode === 'test') {
-      url = 'mongodb://localhost:27111/express-react-mongodb-test-demo';
+      url = 'mongodb://localhost/express-react-mongodb-test-demo';
     }
     mongoose.connect(url, callback);
   },
